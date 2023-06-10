@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Support\Str;
+declare(strict_types=1);
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name
@@ -48,7 +47,6 @@ return [
             'search_path' => 'public',
             'sslmode' => 'prefer',
         ],
-
     ],
 
     /*
