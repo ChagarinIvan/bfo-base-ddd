@@ -30,6 +30,20 @@ final class EloquentEventRepository implements EventRepository
         return $event;
     }
 
+    public function byId(EventId $id): ?Event
+    {
+        /** @var EventModel|null $model */
+        $model = EventModel::active()
+            ->whereId($id->toString())
+            ->first()
+        ;
+
+        /** @var Event|null $event */
+        $event = $model?->toAggregate();
+
+        return $event;
+    }
+
     public function update(Event $event): void
     {
         $model = EventModel::fromAggregate($event);

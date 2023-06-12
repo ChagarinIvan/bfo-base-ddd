@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Application\Dto\Event;
 
 use App\Application\Dto\Shared\ImpressionDto;
-use DateTimeImmutable;
 
 /**
  * @OpenApi\Schema(
@@ -32,8 +31,8 @@ final class ViewEventDto
 
     public string $description;
 
-    /** @OpenApi\Property(type="date-time") */
-    public DateTimeImmutable $date;
+    /** @OpenApi\Property(type="date") */
+    public string $date;
 
     public ImpressionDto $created;
 

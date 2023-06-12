@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Application\Dto\Competition;
 
 use App\Application\Dto\Shared\ImpressionDto;
-use DateTimeImmutable;
 use OpenApi\Annotations as OpenApi;
 
 /**
@@ -30,11 +29,11 @@ final class ViewCompetitionDto
 
     public string $description;
 
-    /** @OpenApi\Property(type="date-time") */
-    public DateTimeImmutable $from;
+    /** @OpenApi\Property(type="date") */
+    public string $from;
 
-    /** @OpenApi\Property(type="date-time") */
-    public DateTimeImmutable $to;
+    /** @OpenApi\Property(type="date") */
+    public string $to;
 
     public ImpressionDto $created;
 

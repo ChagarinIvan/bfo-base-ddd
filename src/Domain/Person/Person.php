@@ -15,6 +15,9 @@ use DateTimeImmutable;
 final class Person extends AggregatedRoot
 {
     private bool $disabled = false;
+
+    private readonly Collection $payments;
+
     private ?RankId $activeRankId = null;
 
     public function __construct(
@@ -22,10 +25,10 @@ final class Person extends AggregatedRoot
         private PersonInfo $info,
         private ?ClubId $clubId,
         private readonly Metadata $attributes,
-        private readonly Collection $payments,
         Impression $impression,
     ) {
         parent::__construct($id, $impression);
+        $this->payments = Collection::empty();
     }
 
     public function disable(Impression $impression): void

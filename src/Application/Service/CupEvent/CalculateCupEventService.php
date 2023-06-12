@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Service\CupEvent;
 
 use App\Application\Dto\CupEvent\CupEventAssembler;
+use App\Application\Dto\CupEvent\ViewCupEventPointsDto;
 use App\Application\Service\CupEvent\Exception\CupEventNotFound;
 use App\Application\Service\CupEvent\Exception\UnableToCalculateCupEvent;
 use App\Domain\CupEvent\Calculator\CupEventCalculator;
@@ -24,16 +25,18 @@ final readonly class CalculateCupEventService
     /**
      * @throws CupEventNotFound
      * @throws UnableToCalculateCupEvent
+     *
+     * @return ViewCupEventPointsDto[]
      */
     public function execute(CalculateCupEvent $command): array
     {
         $cupEvent = $this->cupEvents->byId($command->id()) ?? throw new CupEventNotFound();
         try {
-            $cupEventPoints = $this->calculator->calculate($cupEvent);
+            $cupEventPoints = $this->calculator->calculate($cupEvent, $command->group());
         } catch (CupNotExist $e) {
             throw UnableToCalculateCupEvent::dueError($e);
         }
 
-        return array_map($this->assembler->toViewCupEventDto(...), $cupEventPoints);
+        return array_map($this->assembler->toViewCupEventPointsDto(...), $cupEventPoints);
     }
 }

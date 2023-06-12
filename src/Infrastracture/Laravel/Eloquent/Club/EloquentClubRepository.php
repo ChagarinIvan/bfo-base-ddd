@@ -40,21 +40,16 @@ final class EloquentClubRepository implements ClubRepository
 
     public function oneByCriteria(Criteria $criteria): ?Club
     {
-        /** @var ClubModel|null $model */
-        $model = $this->createBuilder($criteria)->first();
-        /** @var Club|null $club */
-        $club = $model?->toAggregate();
-
-        return $club;
-    }
-
-    private function createBuilder(Criteria $criteria): ClubModel
-    {
         $builder = ClubModel::active();
         foreach ($criteria->params() as $param => $value) {
             $builder = $builder->where($param, $value);
         }
 
-        return $builder;
+        /** @var ClubModel|null $model */
+        $model = $builder->first();
+        /** @var Club|null $club */
+        $club = $model?->toAggregate();
+
+        return $club;
     }
 }

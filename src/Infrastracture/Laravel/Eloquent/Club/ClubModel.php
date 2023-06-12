@@ -13,13 +13,13 @@ use ReflectionClass;
 
 /**
  * @property string $name
- * @property bool   $disabled
+ * @property bool $disabled
  *
  * @method static self whereId(string $id)
  * @method static self active()
  * @method static self where(string $column, mixed $value)
  * @method static self lockForUpdate()
- * @method        self first()
+ * @method self first()
  */
 class ClubModel extends AggregateModel
 {

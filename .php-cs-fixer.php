@@ -133,7 +133,7 @@ return $config->setRules([
 
     // PHPDoc
     'phpdoc_align' => [
-        'align' => 'vertical',
+        'align' => 'left',
     ],
     'phpdoc_order' => true,
     'phpdoc_add_missing_param_annotation' => true,

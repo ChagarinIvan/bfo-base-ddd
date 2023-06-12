@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Application\Dto\Shared;
 
-use DateTimeImmutable;
 use OpenApi\Annotations as OpenApi;
 
 /**
@@ -12,8 +11,8 @@ use OpenApi\Annotations as OpenApi;
  */
 final class ImpressionDto
 {
-    /** @OpenApi\Property(type="string")  */
-    public DateTimeImmutable $at;
+    /** @OpenApi\Property(type="date-time")  */
+    public string $at;
 
     public FootprintDto $by;
 }

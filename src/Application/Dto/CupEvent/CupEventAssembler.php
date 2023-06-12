@@ -12,7 +12,7 @@ final readonly class CupEventAssembler
     {
     }
 
-    public function toViewCupEventDto(CupEventPoints $points): ViewCupEventPointsDto
+    public function toViewCupEventPointsDto(CupEventPoints $points): ViewCupEventPointsDto
     {
         $dto = new ViewCupEventPointsDto();
         $dto->cupEventId = $points->cupEventId->toString();

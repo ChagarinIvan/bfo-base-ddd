@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Application\Dto\Person;
 
+use App\Application\Dto\AbstractDto;
+use App\Application\Dto\Event\EventInfoDto;
 use OpenApi\Annotations as OpenApi;
 
 /** @OpenApi\Schema(
@@ -14,14 +16,9 @@ use OpenApi\Annotations as OpenApi;
  *   }
  * )
  */
-final class PersonDto
+final class PersonDto extends AbstractDto
 {
-    public string $firstname;
-
-    public string $lastname;
-
-    /** @OpenApi\Property(type="number") */
-    public ?string $yearOfBirthday = null;
+    public PersonInfoDto $info;
 
     /**
      * @OpenApi\Property(type="object")
@@ -32,4 +29,22 @@ final class PersonDto
 
     /** @OpenApi\Property(type="uuid", nullable="true") */
     public ?string $clubId = null;
+
+    public static function validationRules(): array
+    {
+        return [
+            ...EventInfoDto::validationRules(),
+            'clubId' => 'uuid',
+        ];
+    }
+
+    public function fromArray(array $data): self
+    {
+        $this->info = new PersonInfoDto();
+        $this->info = $this->info->fromArray($data);
+        $this->attributes = $data['attributes'] ?? [];
+        $this->clubId = $data['clubId'] ?? null;
+
+        return $this;
+    }
 }

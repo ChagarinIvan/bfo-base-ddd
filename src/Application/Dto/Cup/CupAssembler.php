@@ -10,10 +10,6 @@ use function array_map;
 
 final readonly class CupAssembler
 {
-    public function __construct()
-    {
-    }
-
     public function toViewCupTypeDefinitionDto(CupTypeDefinition $definition): ViewCupTypeDefinitionDto
     {
         $dto = new ViewCupTypeDefinitionDto();

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\Service\Event;
 
-use App\Application\Dto\Event\EventInfoDto;
+use App\Application\Dto\Event\EventDto;
 use App\Application\Dto\Shared\TokenFootprint;
 use App\Domain\Competition\CompetitionId;
 use App\Domain\Event\EventInfo;
@@ -15,8 +15,7 @@ use DateTimeImmutable;
 final readonly class AddEvent
 {
     public function __construct(
-        private EventInfoDto $dto,
-        private string $competitionId,
+        private EventDto $dto,
         private TokenFootprint $footprint,
     ) {
     }
@@ -25,7 +24,7 @@ final readonly class AddEvent
     {
         return new EventInput(
             $this->info(),
-            CompetitionId::fromString($this->competitionId),
+            CompetitionId::fromString($this->dto->competitionId),
             $this->footprint(),
         );
     }
@@ -33,9 +32,9 @@ final readonly class AddEvent
     private function info(): EventInfo
     {
         return new EventInfo(
-            $this->dto->name,
-            $this->dto->description,
-            new DateTimeImmutable($this->dto->date),
+            $this->dto->info->name,
+            $this->dto->info->description,
+            new DateTimeImmutable($this->dto->info->date),
         );
     }
 

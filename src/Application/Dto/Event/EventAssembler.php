@@ -20,7 +20,7 @@ final readonly class EventAssembler
         $dto->competitionId = $event->competitionId()->toString();
         $dto->name = $event->name();
         $dto->description = $event->description();
-        $dto->date = $event->date();
+        $dto->date = $event->date()->format('Y-m-d');
         $dto->updated = $this->authAssembler->toImpressionDto($event->updated());
         $dto->created = $this->authAssembler->toImpressionDto($event->created());
 

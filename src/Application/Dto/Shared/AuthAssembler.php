@@ -12,7 +12,7 @@ final class AuthAssembler
     public function toImpressionDto(Impression $impression): ImpressionDto
     {
         $dto = new ImpressionDto();
-        $dto->at = $impression->at;
+        $dto->at = $impression->at->format('Y-m-d H:i:s');
         $dto->by = $this->toFootprintDto($impression->by);
 
         return $dto;

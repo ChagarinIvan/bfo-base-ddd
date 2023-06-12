@@ -14,7 +14,7 @@ final readonly class CupGroup
         return new self($male, $age);
     }
 
-    public function fromString(string $value): self
+    public static function fromString(string $value): self
     {
         if (preg_match('#(\D)_(\d+)#', $value, $m)) {
             return new self(GroupMale::from($m[1]), GroupAge::from((int) $m[2]));

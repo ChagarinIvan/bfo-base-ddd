@@ -13,7 +13,7 @@ abstract class AggregatedRoot
     protected Impression $created;
 
     public function __construct(
-        private readonly AggregatedRootId $id,
+        protected AggregatedRootId $id,
         Impression $impression,
     ) {
         $this->updated = $impression;

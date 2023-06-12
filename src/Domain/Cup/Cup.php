@@ -28,6 +28,26 @@ final class Cup extends AggregatedRoot
         $this->disabled = true;
     }
 
+    public function disabled(): bool
+    {
+        return $this->disabled;
+    }
+
+    public function name(): string
+    {
+        return $this->name;
+    }
+
+    public function eventsCount(): int
+    {
+        return $this->eventsCount;
+    }
+
+    public function year(): int
+    {
+        return $this->year;
+    }
+
     public function type(): CupType
     {
         return $this->type;

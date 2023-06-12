@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use ReflectionClass;
 
 /**
- * @property int    $incrementalId
+ * @property int $incrementalId
  * @property string $id
  * @property string $createdAt
  * @property string $createdBy

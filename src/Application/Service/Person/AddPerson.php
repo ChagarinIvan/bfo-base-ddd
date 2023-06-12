@@ -38,9 +38,9 @@ final readonly class AddPerson
     private function info(): PersonInfo
     {
         return new PersonInfo(
-            $this->dto->firstname,
-            $this->dto->lastname,
-            $this->dto->yearOfBirthday ? (int) $this->dto->yearOfBirthday : null,
+            $this->dto->info->firstname,
+            $this->dto->info->lastname,
+            $this->dto->info->yearOfBirthday ? (int) $this->dto->info->yearOfBirthday : null,
         );
     }
 }

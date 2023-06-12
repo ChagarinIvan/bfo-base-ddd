@@ -20,13 +20,13 @@ use function array_merge;
  * @property string $competitionId
  * @property string $description
  * @property string $date
- * @property bool   $disabled
+ * @property bool $disabled
  *
  * @method static self whereId(string $id)
  * @method static self active()
  * @method static self where(string $column, mixed $value)
  * @method static self lockForUpdate()
- * @method        self first()
+ * @method self first()
  */
 class EventModel extends AggregateModel
 {

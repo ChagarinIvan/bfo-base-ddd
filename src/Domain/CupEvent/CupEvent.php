@@ -26,6 +26,21 @@ final class CupEvent extends AggregatedRoot
         parent::__construct($id, $impression);
     }
 
+    public function disabled(): bool
+    {
+        return $this->disabled;
+    }
+
+    public function eventId(): EventId
+    {
+        return $this->eventId;
+    }
+
+    public function points(): float
+    {
+        return $this->points;
+    }
+
     public function disable(Impression $impression): void
     {
         $this->updated = $impression;

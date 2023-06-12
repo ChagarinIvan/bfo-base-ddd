@@ -11,6 +11,7 @@ use App\Domain\Competition\CompetitionInfo;
 use App\Infrastracture\Laravel\Eloquent\AggregateModel;
 use DateTimeImmutable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use ReflectionClass;
 
 /**
@@ -18,13 +19,16 @@ use ReflectionClass;
  * @property string $description
  * @property string $from
  * @property string $to
- * @property bool   $disabled
+ * @property bool $disabled
  *
  * @method static self whereId(string $id)
  * @method static self active()
  * @method static self where(string $column, mixed $value)
  * @method static self lockForUpdate()
- * @method        self first()
+ * @method static self first()
+ * @method static self limit(int $limit)
+ * @method static self offset(int $offset)
+ * @method Collection|null get()
  */
 class CompetitionModel extends AggregateModel
 {

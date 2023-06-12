@@ -34,6 +34,6 @@ final readonly class StrategyCupEventCalculator implements CupEventCalculator
         /** @var CupEventCalculator $calculator */
         $calculator = new $typeCalculator();
 
-        return $calculator->calculate($cupEvent);
+        return $calculator->calculate($cupEvent, $group);
     }
 }

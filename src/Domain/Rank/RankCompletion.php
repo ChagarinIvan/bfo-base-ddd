@@ -12,12 +12,12 @@ use DateTimeImmutable;
 final readonly class RankCompletion
 {
     public function __construct(
-        private int $id,
-        private PersonId $personId,
-        private EventId $eventId,
-        private RankType $type,
-        private DateTimeImmutable $completedAt,
-        private Impression $createdAt,
+        public int $id,
+        public PersonId $personId,
+        public EventId $eventId,
+        public RankType $type,
+        public DateTimeImmutable $completedAt,
+        public Impression $createdAt,
     ) {
     }
 }

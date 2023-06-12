@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 
+use App\Bridge\Laravel\Http\Provider\RestApiRoutesServiceProvider;
+use App\Bridge\Laravel\Provider\AppServiceProvider;
+use App\Bridge\Laravel\Provider\Club\ClubServiceProvider;
+use App\Bridge\Laravel\Provider\Competition\CompetitionServiceProvider;
+use App\Bridge\Laravel\Provider\Event\EventServiceProvider;
+use App\Bridge\Laravel\Provider\TestAppServiceProvider;
+use Illuminate\Database\DatabaseServiceProvider;
+use Illuminate\Session\SessionServiceProvider;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
@@ -151,8 +159,28 @@ return [
     |
     */
 
-    'providers' => ServiceProvider::defaultProviders()->toArray(),
+    'providers' => ServiceProvider::defaultProviders()
+        ->except([
+            SessionServiceProvider::class,
+        ])
+        ->merge([
+            // Base
+            DatabaseServiceProvider::class,
 
+            // Routes
+            RestApiRoutesServiceProvider::class,
+
+            // App
+            AppServiceProvider::class,
+
+            ClubServiceProvider::class,
+            CompetitionServiceProvider::class,
+            EventServiceProvider::class,
+
+            // Test
+            TestAppServiceProvider::class,
+        ])
+        ->toArray(),
     /*
     |--------------------------------------------------------------------------
     | Class Aliases
