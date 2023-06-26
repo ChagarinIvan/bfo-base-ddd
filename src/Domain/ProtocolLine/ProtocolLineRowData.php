@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace App\Domain\ProtocolLine;
 
-final class ProtocolLineRowData
+final readonly class ProtocolLineRowData
 {
     public function __construct(
-        public readonly string $serialNumber,
-        public readonly string $firstname,
-        public readonly string $lastname,
-        public readonly string $club,
-        public readonly string $year,
-        public readonly string $rank,
-        public readonly string $runnerNumber,
-        public readonly string $time,
-        public readonly string $place,
-        public readonly string $completedRank,
-        public readonly string $points,
-        public readonly string $outOfCompetition,
+        public string $serialNumber,
+        public string $firstname,
+        public string $lastname,
+        public string $club,
+        public string $year,
+        public string $rank,
+        public string $runnerNumber,
+        public string $time,
+        public string $place,
+        public string $completedRank,
+        public string $points,
+        public string $outOfCompetition,
     ) {
     }
 }

@@ -23,6 +23,11 @@ final readonly class CupGroup
         throw new RuntimeException('Wrong group');
     }
 
+    public function id(): string
+    {
+        return $this->toString();
+    }
+
     public function toString(): string
     {
         return "{$this->male->value}_" . $this->age->value;

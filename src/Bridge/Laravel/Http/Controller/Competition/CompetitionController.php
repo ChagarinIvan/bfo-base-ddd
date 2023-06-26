@@ -7,6 +7,7 @@ namespace App\Bridge\Laravel\Http\Controller\Competition;
 use App\Application\Dto\Competition\CompetitionInfoDto;
 use App\Application\Dto\Competition\CompetitionSearchDto;
 use App\Application\Dto\Competition\ViewCompetitionDto;
+use App\Application\Dto\Shared\PaginationAdapter;
 use App\Application\Dto\Shared\TokenFootprint;
 use App\Application\Service\Competition\AddCompetition;
 use App\Application\Service\Competition\AddCompetitionService;
@@ -20,7 +21,6 @@ use App\Application\Service\Competition\UpdateCompetitionInfoService;
 use App\Application\Service\Competition\ViewCompetition;
 use App\Application\Service\Competition\ViewCompetitionService;
 use App\Bridge\Laravel\Http\Controller\Controller;
-use Illuminate\Pagination\Paginator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -35,7 +35,7 @@ final class CompetitionController extends Controller
         }
     }
 
-    public function list(CompetitionSearchDto $search, ListCompetitionsService $service): Paginator
+    public function list(CompetitionSearchDto $search, ListCompetitionsService $service): PaginationAdapter
     {
         return $service->execute(new ListCompetitions($search));
     }

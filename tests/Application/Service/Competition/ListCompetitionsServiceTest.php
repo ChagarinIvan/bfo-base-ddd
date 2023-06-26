@@ -8,11 +8,13 @@ use App\Application\Dto\Competition\CompetitionAssembler;
 use App\Application\Dto\Competition\CompetitionSearchDto;
 use App\Application\Dto\Competition\ViewCompetitionDto;
 use App\Application\Dto\Shared\AuthAssembler;
+use App\Application\Dto\Shared\Pagination;
+use App\Application\Dto\Shared\PaginationAdapter;
 use App\Application\Service\Competition\ListCompetitions;
 use App\Application\Service\Competition\ListCompetitionsService;
 use App\Domain\Competition\CompetitionRepository;
 use App\Domain\Shared\Criteria;
-use Illuminate\Pagination\Paginator;
+use App\Domain\Shared\ListingResult;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Tests\Faker\Competition\CompetitionFaker;
@@ -41,21 +43,23 @@ class ListCompetitionsServiceTest extends TestCase
             ->expects($this->once())
             ->method('byCriteria')
             ->with($this->equalTo(new Criteria(['page' => 2, 'perPage' => 10])))
-            ->willReturn([$competition1, $competition2])
+            ->willReturn(new ListingResult(3, [$competition1, $competition2]))
         ;
 
         $dto = new CompetitionSearchDto();
 
-        $dto->page = 2;
-        $dto->perPage = 10;
+        $dto->pagination = new Pagination();
+        $dto->pagination->page = 2;
+        $dto->pagination->perPage = 10;
 
         $command = new ListCompetitions($dto);
         $result = $this->service->execute($command);
 
-        $this->assertInstanceOf(Paginator::class, $result);
-        $this->assertCount(2, $result);
+        $this->assertInstanceOf(PaginationAdapter::class, $result);
+        $this->assertEquals(2, $result->count());
+        $this->assertEquals(3, $result->total());
         $this->assertEquals(10, $result->perPage());
-        $this->assertEquals(2, $result->currentPage());
+        $this->assertEquals(2, $result->page());
         $competitions = $result->items();
         $this->assertIsList($competitions);
         $this->assertContainsOnlyInstancesOf(ViewCompetitionDto::class, $competitions);

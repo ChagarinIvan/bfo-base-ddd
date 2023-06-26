@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Service\Competition;
+namespace App\Application\Service\Event;
 
-use App\Application\Dto\Competition\CompetitionSearchDto;
+use App\Application\Dto\Event\EventSearchDto;
 use App\Application\Dto\Shared\Pagination;
 use App\Domain\Shared\Criteria;
 
-final readonly class ListCompetitions
+final readonly class ListEvents
 {
     public function __construct(
-        private CompetitionSearchDto $search,
+        private EventSearchDto $search,
     ) {
     }
 

@@ -9,6 +9,8 @@ use App\Domain\Club\ClubId;
 use App\Domain\Distance\DistanceId;
 use App\Domain\Person\PersonId;
 use App\Domain\Shared\Impression;
+use DateTimeImmutable;
+use function date_create_immutable;
 
 final class ProtocolLine extends AggregatedRoot
 {
@@ -41,5 +43,10 @@ final class ProtocolLine extends AggregatedRoot
     public function row(): ProtocolLineRowData
     {
         return $this->row;
+    }
+
+    public function time(): DateTimeImmutable|false
+    {
+        return date_create_immutable($this->row->time);
     }
 }

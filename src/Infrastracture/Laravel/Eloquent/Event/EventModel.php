@@ -12,6 +12,7 @@ use App\Domain\Event\EventInfo;
 use App\Infrastracture\Laravel\Eloquent\AggregateModel;
 use DateTimeImmutable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use ReflectionClass;
 use function array_merge;
 
@@ -24,9 +25,14 @@ use function array_merge;
  *
  * @method static self whereId(string $id)
  * @method static self active()
- * @method static self where(string $column, mixed $value)
+ * @method static self where(string $column, mixed $operator = null, mixed $value = null)
  * @method static self lockForUpdate()
- * @method self first()
+ * @method static self first()
+ * @method static self limit(int $limit)
+ * @method static self offset(int $offset)
+ * @method static self orderByDesc(string ...$columns)
+ * @method int count()
+ * @method Collection|null get()
  */
 class EventModel extends AggregateModel
 {

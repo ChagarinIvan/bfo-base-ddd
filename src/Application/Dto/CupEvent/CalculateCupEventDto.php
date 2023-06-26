@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Dto\CupEvent;
 
 use App\Application\Dto\AbstractDto;
-use OpenApi\Annotations as OpenApi;
 
-/** @OpenApi\Schema(additionalProperties=false, required={"id", "group"}) */
 final class CalculateCupEventDto extends AbstractDto
 {
     public string $id;

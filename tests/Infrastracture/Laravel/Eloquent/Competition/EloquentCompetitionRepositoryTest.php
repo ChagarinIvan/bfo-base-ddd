@@ -21,6 +21,20 @@ class EloquentCompetitionRepositoryTest extends TestCase
 
     private EloquentCompetitionRepository $competitions;
 
+    /**
+     * @return array<string, array<int, mixed>>
+     */
+    public static function listCriteriaDataProvider(): array
+    {
+        return [
+            'pagination' => [new Criteria(['page' => 1, 'perPage' => 2]), 2, '1b07ca91-1e16-4b5b-b459-341ca9e79aa9', 3],
+            'filter_by_name' => [new Criteria(['page' => 1, 'perPage' => 2, 'name' => '1']), 1, '1b07ca91-1e16-4b5b-b459-341ca9e79aa9', 1],
+            'filter_by_description' => [new Criteria(['page' => 1, 'perPage' => 2, 'description' => '1']), 1, '3a48ca7e-13bc-4198-80ba-237384dbf9a6', 1],
+            'filter_by_from' => [new Criteria(['page' => 1, 'perPage' => 2, 'from' => '2023-02-01']), 2, '1b07ca91-1e16-4b5b-b459-341ca9e79aa9', 2],
+            'filter_by_name_and_to' => [new Criteria(['page' => 1, 'perPage' => 2, 'name' => '1', 'to' => '2023-02-02']), 1, '1b07ca91-1e16-4b5b-b459-341ca9e79aa9', 1],
+        ];
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -59,8 +73,8 @@ class EloquentCompetitionRepositoryTest extends TestCase
         $this->assertEquals('1fc7e705-ef72-47b2-ba4e-55779b02c61f', $competition->id()->toString());
         $this->assertEquals('test competition', $competition->name());
         $this->assertEquals('test competition description', $competition->description());
-        $this->assertEquals(new DateTimeImmutable('2023-01-01'), $competition->from());
-        $this->assertEquals(new DateTimeImmutable('2023-01-02'), $competition->to());
+        $this->assertEquals(new DateTimeImmutable('2023-02-01'), $competition->from());
+        $this->assertEquals(new DateTimeImmutable('2023-02-02'), $competition->to());
         $this->assertEquals(new DateTimeImmutable('2022-01-01'), $competition->created()->at);
         $this->assertEquals(BaseUuid::NIL, $competition->created()->by->id->toString());
         $this->assertEquals(new DateTimeImmutable('2022-01-01'), $competition->updated()->at);
@@ -77,24 +91,29 @@ class EloquentCompetitionRepositoryTest extends TestCase
         $this->assertEquals('1fc7e705-ef72-47b2-ba4e-55779b02c61f', $competition->id()->toString());
         $this->assertEquals('test competition', $competition->name());
         $this->assertEquals('test competition description', $competition->description());
-        $this->assertEquals(new DateTimeImmutable('2023-01-01'), $competition->from());
-        $this->assertEquals(new DateTimeImmutable('2023-01-02'), $competition->to());
+        $this->assertEquals(new DateTimeImmutable('2023-02-01'), $competition->from());
+        $this->assertEquals(new DateTimeImmutable('2023-02-02'), $competition->to());
         $this->assertEquals(new DateTimeImmutable('2022-01-01'), $competition->created()->at);
         $this->assertEquals(BaseUuid::NIL, $competition->created()->by->id->toString());
         $this->assertEquals(new DateTimeImmutable('2022-01-01'), $competition->updated()->at);
         $this->assertEquals(BaseUuid::NIL, $competition->updated()->by->id->toString());
     }
 
-    /** @test */
-    public function it_gets_list_of_competition_by_criteria(): void
+    /**
+     * @test
+     * @dataProvider listCriteriaDataProvider
+     */
+    public function it_gets_list_of_competition_by_criteria(Criteria $criteria, int $count, string $id, int $total): void
     {
         $this->seed(CompetitionFakeSeeder::class);
-        $competitions = $this->competitions->byCriteria(new Criteria(['page' => 1, 'perPage' => 1]));
+        $result = $this->competitions->byCriteria($criteria);
+        $competitions = $result->items;
 
         $this->assertNotNull($competitions);
         $this->assertIsList($competitions);
         $this->assertContainsOnlyInstancesOf(Competition::class, $competitions);
-        $this->assertCount(1, $competitions);
-        $this->assertEquals('3a48ca7e-13bc-4198-80ba-237384dbf9a6', $competitions[0]->id()->toString());
+        $this->assertCount($count, $competitions);
+        $this->assertEquals($id, $competitions[0]->id()->toString());
+        $this->assertEquals($total, $result->total);
     }
 }

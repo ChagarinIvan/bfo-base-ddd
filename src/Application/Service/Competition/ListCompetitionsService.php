@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Application\Service\Competition;
 
 use App\Application\Dto\Competition\CompetitionAssembler;
+use App\Application\Dto\Shared\PaginationAdapter;
 use App\Domain\Competition\CompetitionRepository;
-use Illuminate\Pagination\Paginator;
-use function array_map;
 
 final readonly class ListCompetitionsService
 {
@@ -17,14 +16,12 @@ final readonly class ListCompetitionsService
     ) {
     }
 
-    public function execute(ListCompetitions $command): Paginator
+    public function execute(ListCompetitions $command): PaginationAdapter
     {
-        $competitions = $this->competitions->byCriteria($command->criteria());
-
-        return new Paginator(
-            array_map($this->assembler->toViewCompetitionDto(...), $competitions),
-            $command->perPage(),
-            $command->page(),
+        return new PaginationAdapter(
+            $this->competitions->byCriteria($command->criteria()),
+            $command->pagination(),
+            $this->assembler->toViewCompetitionDto(...)
         );
     }
 }

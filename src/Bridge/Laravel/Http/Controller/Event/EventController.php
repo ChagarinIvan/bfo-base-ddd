@@ -6,13 +6,17 @@ namespace App\Bridge\Laravel\Http\Controller\Event;
 
 use App\Application\Dto\Event\EventDto;
 use App\Application\Dto\Event\EventInfoDto;
+use App\Application\Dto\Event\EventSearchDto;
 use App\Application\Dto\Event\ViewEventDto;
+use App\Application\Dto\Shared\PaginationAdapter;
 use App\Application\Dto\Shared\TokenFootprint;
 use App\Application\Service\Event\AddEvent;
 use App\Application\Service\Event\AddEventService;
 use App\Application\Service\Event\DisableEvent;
 use App\Application\Service\Event\DisableEventService;
 use App\Application\Service\Event\Exception\EventNotFound;
+use App\Application\Service\Event\ListEvents;
+use App\Application\Service\Event\ListEventsService;
 use App\Application\Service\Event\UpdateEventInfo;
 use App\Application\Service\Event\UpdateEventInfoService;
 use App\Application\Service\Event\ViewEvent;
@@ -30,6 +34,11 @@ final class EventController extends Controller
         } catch (EventNotFound) {
             throw new NotFoundHttpException();
         }
+    }
+
+    public function list(EventSearchDto $search, ListEventsService $service): PaginationAdapter
+    {
+        return $service->execute(new ListEvents($search));
     }
 
     public function create(

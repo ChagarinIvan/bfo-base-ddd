@@ -128,4 +128,34 @@ class EventControllerTest extends TestCase
             ->assertStatus(Response::HTTP_NOT_FOUND)
         ;
     }
+
+    /** @test */
+    public function it_gets_list_of_events_with_filtering(): void
+    {
+        $this
+            ->get('rest/event/event?competitionId=ff4d49a6-e5f0-49ea-8c5c-0bba1200aa97')
+            ->assertStatus(Response::HTTP_OK)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJsonIsArray()
+            ->assertJsonCount(1)
+            ->assertHeader('X-Count', 1)
+            ->assertHeader('X-Page', 1)
+            ->assertHeader('X-Per-Page', 20)
+            ->assertHeader('X-Total-Count', 1)
+            ->assertJsonStructure([
+                [
+                    'id',
+                    'competitionId',
+                    'name',
+                    'description',
+                    'date',
+                    'created' => ['at', 'by'],
+                    'updated' => ['at', 'by'],
+                ],
+            ])
+            ->assertJson([
+                ['id' => '1efaf3e4-a661-4a68-b014-669e03d1f895'],
+            ])
+        ;
+    }
 }

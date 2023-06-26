@@ -19,12 +19,14 @@ class CupEventFaker
         string $eventId = '56e6fb03-5869-427e-9bd3-14d8695500cf',
     ): CupEvent {
         return new CupEvent(
-            CupEventId::fromString($id),
-            CupId::fromString($cupId),
-            EventId::fromString($eventId),
-            Metadata::empty(),
-            1100,
-            AuthFaker::fakeImpression()
+            id: CupEventId::fromString($id),
+            cupId: CupId::fromString($cupId),
+            eventId: EventId::fromString($eventId),
+            groupsMap: Metadata::fromArray([
+                'M_21' => ['b5f58bfd-1335-4e0c-8233-7dc2ab82181f', 'bb3bf8fc-929b-4769-9dad-9fc147a5b87f'],
+            ]),
+            points: 1100,
+            impression: AuthFaker::fakeImpression()
         );
     }
 }

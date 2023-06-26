@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Competition;
 
 use App\Domain\Shared\Criteria;
+use App\Domain\Shared\ListingResult;
 
 interface CompetitionRepository
 {
@@ -16,6 +17,5 @@ interface CompetitionRepository
 
     public function byId(CompetitionId $id): ?Competition;
 
-    /** @return Competition[] */
-    public function byCriteria(Criteria $criteria): array;
+    public function byCriteria(Criteria $criteria): ListingResult;
 }

@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Dto\Club;
 
 use App\Application\Dto\AbstractDto;
-use OpenApi\Annotations as OpenApi;
 
-/** @OpenApi\Schema(additionalProperties=false, required={"name"}) */
 final class ClubDto extends AbstractDto
 {
     public string $name;

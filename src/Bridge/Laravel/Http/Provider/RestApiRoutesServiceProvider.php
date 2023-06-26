@@ -13,20 +13,25 @@ final class RestApiRoutesServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        // Competition
-        Route::get('/rest/competition/competition', [CompetitionController::class, 'list']);
-        Route::get('/rest/competition/competition/{id}', [CompetitionController::class, 'view']);
-        Route::middleware('token')->group(static function (): void {
-            Route::post('/rest/competition/competition', [CompetitionController::class, 'create']);
-            Route::put('/rest/competition/competition/{id}', [CompetitionController::class, 'changeCompetitionInfo']);
-            Route::delete('/rest/competition/competition/{id}', [CompetitionController::class, 'disable']);
-        });
-
-        Route::get('/rest/event/event/{id}', [EventController::class, 'view']);
-        Route::middleware('token')->group(static function (): void {
-            Route::post('/rest/event/event', [EventController::class, 'create']);
-            Route::put('/rest/event/event/{id}', [EventController::class, 'changeEventInfo']);
-            Route::delete('/rest/event/event/{id}', [EventController::class, 'disable']);
+        Route::prefix('rest')->group(static function (): void {
+            Route::prefix('competition')->group(static function (): void {
+                Route::get('competition/{id}', [CompetitionController::class, 'view']);
+                Route::get('competition', [CompetitionController::class, 'list']);
+                Route::middleware('token')->group(static function (): void {
+                    Route::post('competition', [CompetitionController::class, 'create']);
+                    Route::put('competition/{id}', [CompetitionController::class, 'changeCompetitionInfo']);
+                    Route::delete('competition/{id}', [CompetitionController::class, 'disable']);
+                });
+            });
+            Route::prefix('event')->group(static function (): void {
+                Route::get('event/{id}', [EventController::class, 'view']);
+                Route::get('event', [EventController::class, 'list']);
+                Route::middleware('token')->group(static function (): void {
+                    Route::post('event', [EventController::class, 'create']);
+                    Route::put('event/{id}', [EventController::class, 'changeEventInfo']);
+                    Route::delete('event/{id}', [EventController::class, 'disable']);
+                });
+            });
         });
     }
 }

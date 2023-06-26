@@ -6,7 +6,7 @@ namespace App\Domain\Shared;
 
 use OutOfRangeException;
 
-final readonly class Criteria
+readonly class Criteria
 {
     public function __construct(
         /** @var array<string, mixed> $params */

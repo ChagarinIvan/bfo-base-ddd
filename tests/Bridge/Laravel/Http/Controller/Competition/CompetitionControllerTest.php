@@ -32,8 +32,8 @@ class CompetitionControllerTest extends TestCase
                 'id' => '1fc7e705-ef72-47b2-ba4e-55779b02c61f',
                 'name' => 'test competition',
                 'description' => 'test competition description',
-                'from' => '2023-01-01',
-                'to' => '2023-01-02',
+                'from' => '2023-02-01',
+                'to' => '2023-02-02',
                 'created' => ['at' => '2022-01-01 00:00:00', 'by' => ['id' => '00000000-0000-0000-0000-000000000000']],
                 'updated' => ['at' => '2022-01-01 00:00:00', 'by' => ['id' => '00000000-0000-0000-0000-000000000000']],
             ])
@@ -43,25 +43,60 @@ class CompetitionControllerTest extends TestCase
     /** @test */
     public function it_gets_list_of_competitions(): void
     {
-        $response = $this
-            ->get('rest/competition/competition')
+        $this
+            ->get('rest/competition/competition?page=1&perPage=2')
             ->assertStatus(Response::HTTP_OK)
             ->assertHeader('Content-Type', 'application/json')
-            ->assertJsonIsObject()
+            ->assertJsonIsArray()
+            ->assertJsonCount(2)
+            ->assertHeader('X-Count', 2)
+            ->assertHeader('X-Page', 1)
+            ->assertHeader('X-Per-Page', 2)
+            ->assertHeader('X-Total-Count', 3)
             ->assertJsonStructure([
-                'data' => [
-                    '*' => [
-                        'id',
-                        'name',
-                        'description',
-                        'from',
-                        'to',
-                        'created' => ['at', 'by'],
-                        'updated' => ['at', 'by'],
-                    ],
+                [
+                    'id',
+                    'name',
+                    'description',
+                    'from',
+                    'to',
+                    'created' => ['at', 'by'],
+                    'updated' => ['at', 'by'],
                 ],
-                'current_page',
-                'per_page',
+            ])
+            ->assertJson([
+                ['id' => '1b07ca91-1e16-4b5b-b459-341ca9e79aa9'],
+                ['id' => '3a48ca7e-13bc-4198-80ba-237384dbf9a6'],
+            ])
+        ;
+    }
+
+    /** @test */
+    public function it_gets_list_of_competitions_with_filtering(): void
+    {
+        $this
+            ->get('rest/competition/competition?name=1&to=2023-02-02')
+            ->assertStatus(Response::HTTP_OK)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJsonIsArray()
+            ->assertJsonCount(1)
+            ->assertHeader('X-Count', 1)
+            ->assertHeader('X-Page', 1)
+            ->assertHeader('X-Per-Page', 20)
+            ->assertHeader('X-Total-Count', 1)
+            ->assertJsonStructure([
+                [
+                    'id',
+                    'name',
+                    'description',
+                    'from',
+                    'to',
+                    'created' => ['at', 'by'],
+                    'updated' => ['at', 'by'],
+                ],
+            ])
+            ->assertJson([
+                ['id' => '1b07ca91-1e16-4b5b-b459-341ca9e79aa9'],
             ])
         ;
     }
@@ -69,7 +104,10 @@ class CompetitionControllerTest extends TestCase
     /** @test */
     public function it_returns_not_found_when_competition_disabled(): void
     {
-        $this->get('rest/competition/competition/ff4d49a6-e5f0-49ea-8c5c-0bba1200aa97')->assertNotFound();
+        $this
+            ->get('rest/competition/competition/ff4d49a6-e5f0-49ea-8c5c-0bba1200aa97')
+            ->assertNotFound()
+        ;
     }
 
     /** @test */

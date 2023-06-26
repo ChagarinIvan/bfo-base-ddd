@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Dto\Competition;
+namespace App\Application\Dto\Event;
 
 use App\Application\Dto\AbstractDto;
 use App\Application\Dto\Shared\Pagination;
@@ -10,26 +10,26 @@ use function array_key_exists;
 use function array_merge;
 use function get_object_vars;
 
-final class CompetitionSearchDto extends AbstractDto
+final class EventSearchDto extends AbstractDto
 {
     public Pagination $pagination;
+
+    public ?string $competitionId;
 
     public ?string $name;
 
     public ?string $description;
 
-    public ?string $from;
-
-    public ?string $to;
+    public ?string $date;
 
     public static function validationRules(): array
     {
         return [
             ...Pagination::validationRules(),
+            'competitionId' => 'uuid',
             'name' => '',
             'description;' => '',
-            'from' => 'date',
-            'to' => 'date',
+            'date' => 'date',
         ];
     }
 
@@ -37,10 +37,10 @@ final class CompetitionSearchDto extends AbstractDto
     {
         $this->pagination = new Pagination();
         $this->pagination = $this->pagination->fromArray($data);
+        $this->setParam('competitionId', $data);
         $this->setParam('name', $data);
         $this->setParam('description', $data);
-        $this->setParam('from', $data);
-        $this->setParam('to', $data);
+        $this->setParam('date', $data);
 
         return $this;
     }
