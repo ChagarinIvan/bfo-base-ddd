@@ -10,7 +10,9 @@ use App\Domain\Club\Factory\ClubIdGenerator;
 use App\Domain\Club\Factory\NormalizeClubNameClubFactory;
 use App\Domain\Club\Factory\PreventDuplicateClubFactory;
 use App\Domain\Club\Factory\StandardClubFactory;
-use App\Domain\Shared\Normalizer\Normalizer;
+use App\Domain\Club\Updater;
+use App\Domain\Shared\Clock;
+use App\Domain\Shared\Normalizer\SymbolNormalizer;
 use App\Infrastracture\Laravel\Club\LaravelStrClubIdGenerator;
 use App\Infrastracture\Laravel\Eloquent\Club\EloquentClubRepository;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -27,8 +29,12 @@ final class ClubServiceProvider extends ServiceProvider
         ));
         $this->app->bind(ClubFactory::class, fn () => new NormalizeClubNameClubFactory(
             $this->app->get(PreventDuplicateClubFactory::class),
-            $this->app->get(Normalizer::class),
+            $this->app->get(SymbolNormalizer::class),
         ));
         $this->app->bind(ClubIdGenerator::class, LaravelStrClubIdGenerator::class);
+        $this->app->bind(Updater::class, fn () => new Updater(
+            $this->app->get(SymbolNormalizer::class),
+            $this->app->get(Clock::class),
+        ));
     }
 }

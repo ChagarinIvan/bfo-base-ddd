@@ -7,7 +7,7 @@ namespace App\Application\Service\Club;
 use App\Application\Dto\Club\ClubDto;
 use App\Application\Dto\Shared\TokenFootprint;
 use App\Domain\Club\ClubId;
-use App\Domain\Club\UpdateInput;
+use App\Domain\Club\Factory\ClubInput;
 use App\Domain\Shared\Footprint;
 
 final readonly class UpdateClub
@@ -29,8 +29,11 @@ final readonly class UpdateClub
         return ClubId::fromString($this->id);
     }
 
-    public function input(): UpdateInput
+    public function clubInput(): ClubInput
     {
-        return new UpdateInput($this->club->name);
+        return new ClubInput(
+            $this->club->name,
+            $this->footprint(),
+        );
     }
 }

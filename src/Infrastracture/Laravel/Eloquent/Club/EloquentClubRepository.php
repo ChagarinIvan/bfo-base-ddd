@@ -8,6 +8,8 @@ use App\Domain\Club\Club;
 use App\Domain\Club\ClubId;
 use App\Domain\Club\ClubRepository;
 use App\Domain\Shared\Criteria;
+use App\Domain\Shared\ListingResult;
+use Illuminate\Support\Collection;
 
 final class EloquentClubRepository implements ClubRepository
 {
@@ -22,6 +24,20 @@ final class EloquentClubRepository implements ClubRepository
         $model = ClubModel::active()
             ->whereId($id->toString())
             ->lockForUpdate()
+            ->first()
+        ;
+
+        /** @var Club|null $club */
+        $club = $model?->toAggregate();
+
+        return $club;
+    }
+
+    public function byId(ClubId $id): ?Club
+    {
+        /** @var ClubModel|null $model */
+        $model = ClubModel::active()
+            ->whereId($id->toString())
             ->first()
         ;
 
@@ -51,5 +67,33 @@ final class EloquentClubRepository implements ClubRepository
         $club = $model?->toAggregate();
 
         return $club;
+    }
+
+    public function byCriteria(Criteria $criteria): ListingResult
+    {
+        $query = ClubModel::active();
+        $perPage = (int) $criteria->param('perPage');
+        $page = (int) $criteria->param('page') - 1;
+
+        $query->orderByDesc('createdAt');
+        $query->orderByDesc('incrementalId');
+
+        if ($criteria->hasParam('name_like')) {
+            $query->where('name', 'LIKE', '%' . $criteria->param('name_like') . '%');
+        }
+
+        $count = $query->count();
+        $query->limit($perPage);
+        $query->offset($page * $perPage);
+
+        $models = $query->get() ?: Collection::empty();
+
+        /** @var Club[] $clubs */
+        $clubs = $models->map(static fn (ClubModel $model) => $model->toAggregate())->toArray();
+
+        return new ListingResult(
+            $count,
+            $clubs,
+        );
     }
 }

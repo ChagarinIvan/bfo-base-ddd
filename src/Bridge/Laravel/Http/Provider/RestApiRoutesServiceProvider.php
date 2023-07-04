@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Bridge\Laravel\Http\Provider;
 
+use App\Bridge\Laravel\Http\Controller\Club\ClubController;
 use App\Bridge\Laravel\Http\Controller\Competition\CompetitionController;
 use App\Bridge\Laravel\Http\Controller\Event\EventController;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -30,6 +31,15 @@ final class RestApiRoutesServiceProvider extends ServiceProvider
                     Route::post('event', [EventController::class, 'create']);
                     Route::put('event/{id}', [EventController::class, 'changeEventInfo']);
                     Route::delete('event/{id}', [EventController::class, 'disable']);
+                });
+            });
+            Route::prefix('club')->group(static function (): void {
+                Route::get('club/{id}', [ClubController::class, 'view']);
+                Route::get('club', [ClubController::class, 'list']);
+                Route::middleware('token')->group(static function (): void {
+                    Route::post('club', [ClubController::class, 'create']);
+                    Route::put('club/{id}', [ClubController::class, 'changeClub']);
+                    Route::delete('club/{id}', [ClubController::class, 'disable']);
                 });
             });
         });

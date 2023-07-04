@@ -26,7 +26,7 @@ final class ClubAssemblerTest extends TestCase
         $dto = $this->assembler->toViewClubDto($club);
 
         $this->assertEquals('1fc7e705-ef72-47b2-ba4e-55779b02c61f', $dto->id);
-        $this->assertEquals('test club', $dto->name);
+        $this->assertEquals('tеst сlub', $dto->name);
         $this->assertEquals('2022-01-01 00:00:00', $dto->created->at);
         $this->assertEquals(BaseUuid::NIL, $dto->created->by->id);
         $this->assertEquals('2022-01-01 00:00:00', $dto->updated->at);

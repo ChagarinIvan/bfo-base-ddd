@@ -6,7 +6,6 @@ namespace App\Application\Dto\Event;
 
 use App\Application\Dto\AbstractDto;
 use App\Application\Dto\Shared\Pagination;
-use function array_key_exists;
 use function array_merge;
 use function get_object_vars;
 
@@ -54,15 +53,5 @@ final class EventSearchDto extends AbstractDto
         unset($result['pagination']);
 
         return array_merge($result, get_object_vars($this->pagination));
-    }
-
-    /**
-     * @param array<string, mixed> $data
-     */
-    private function setParam(string $name, array $data): void
-    {
-        if (array_key_exists($name, $data)) {
-            $this->$name = $data[$name];
-        }
     }
 }
