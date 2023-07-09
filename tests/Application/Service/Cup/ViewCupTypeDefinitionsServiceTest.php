@@ -6,6 +6,7 @@ namespace Tests\Application\Service\Cup;
 
 use App\Application\Dto\Cup\CupAssembler;
 use App\Application\Dto\Cup\ViewCupTypeDefinitionDto;
+use App\Application\Dto\Shared\AuthAssembler;
 use App\Application\Service\Cup\ViewCupTypeDefinitionsService;
 use App\Domain\Cup\CupTypeDefinitions;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +19,7 @@ class ViewCupTypeDefinitionsServiceTest extends TestCase
     {
         $this->service = new ViewCupTypeDefinitionsService(
             new CupTypeDefinitions(),
-            new CupAssembler(),
+            new CupAssembler(new AuthAssembler()),
         );
     }
 

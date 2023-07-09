@@ -6,5 +6,7 @@ namespace App\Domain\Cup;
 
 interface CupRepository
 {
+    public function add(Cup $cup): void;
+
     public function byId(CupId $id): ?Cup;
 }
