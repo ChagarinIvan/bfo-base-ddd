@@ -7,6 +7,7 @@ namespace App\Infrastracture\Laravel\Eloquent\Cup;
 use App\Domain\AggregatedRoot;
 use App\Domain\Cup\Cup;
 use App\Domain\Cup\CupId;
+use App\Domain\Cup\CupInfo;
 use App\Domain\Cup\CupType;
 use App\Infrastracture\Laravel\Eloquent\AggregateModel;
 use Illuminate\Database\Eloquent\Builder;
@@ -71,10 +72,12 @@ class CupModel extends AggregateModel
         $cup = $reflector->newInstanceWithoutConstructor();
         $reflector = new ReflectionClass($cup);
         self::setWithReflection($reflector, 'id', $cup, CupId::fromString($this->id));
-        self::setWithReflection($reflector, 'name', $cup, $this->name);
-        self::setWithReflection($reflector, 'eventsCount', $cup, $this->eventsCount);
-        self::setWithReflection($reflector, 'year', $cup, $this->year);
-        self::setWithReflection($reflector, 'type', $cup, CupType::from($this->type));
+        self::setWithReflection($reflector, 'info', $cup, new CupInfo(
+            $this->name,
+            $this->eventsCount,
+            $this->year,
+            CupType::from($this->type),
+        ));
         self::setWithReflection($reflector, 'disabled', $cup, $this->disabled);
         self::setWithReflection($reflector, 'created', $cup, self::reflectImpression($this->createdAt, $this->createdBy));
         self::setWithReflection($reflector, 'updated', $cup, self::reflectImpression($this->updatedAt, $this->updatedBy));

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Bridge\Laravel\Http\Controller\Club;
 
+use App\Bridge\Laravel\Http\Controller\Club\ClubController;
 use Database\Seeders\Fakes\ClubFakeSeeder;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,10 @@ class ClubControllerTest extends TestCase
         $this->seed(ClubFakeSeeder::class);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see ClubController::list()
+     */
     public function it_gets_list_of_clubs(): void
     {
         $this
@@ -49,7 +53,10 @@ class ClubControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see ClubController::list()
+     */
     public function it_gets_list_of_clubs_with_filtering(): void
     {
         $this
@@ -76,8 +83,11 @@ class ClubControllerTest extends TestCase
         ;
     }
 
-    /** @test */
-    public function it_returns_not_found_when_competition_disabled(): void
+    /**
+     * @test
+     * @see ClubController::view()
+     */
+    public function it_returns_not_found_when_club_disabled(): void
     {
         $this
             ->get('rest/club/club/ff4d49a6-e5f0-49ea-8c5c-0bba1200aa97')
@@ -85,7 +95,10 @@ class ClubControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see ClubController::create()
+     */
     public function it_creates_club(): void
     {
         $this
@@ -103,7 +116,10 @@ class ClubControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see ClubController::changeClub()
+     */
     public function it_changes_club(): void
     {
         $this
@@ -128,7 +144,10 @@ class ClubControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see ClubController::create()
+     */
     public function it_prevent_creating_of_duplicate_club(): void
     {
         $this
@@ -140,7 +159,10 @@ class ClubControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see ClubController::create()
+     */
     public function it_validates_club_name_before_create(): void
     {
         $this
@@ -152,7 +174,10 @@ class ClubControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see ClubController::disable()
+     */
     public function it_deletes_club(): void
     {
         $this

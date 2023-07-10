@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Bridge\Laravel\Http\Controller\Event;
 
+use App\Bridge\Laravel\Http\Controller\Event\EventController;
 use Database\Seeders\Fakes\EventFakeSeeder;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,10 @@ class EventControllerTest extends TestCase
         $this->seed(EventFakeSeeder::class);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see EventController::view()
+     */
     public function it_gets_event(): void
     {
         $this
@@ -40,13 +44,19 @@ class EventControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see EventController::view()
+     */
     public function it_returns_not_found_when_event_disabled(): void
     {
         $this->get('rest/event/event/ff4d49a6-e5f0-49ea-8c5c-0bba1200aa97')->assertNotFound();
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see EventController::create()
+     */
     public function it_creates_event(): void
     {
         $this
@@ -70,7 +80,10 @@ class EventControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see EventController::changeEventInfo()
+     */
     public function it_changes_event_info(): void
     {
         $this
@@ -99,7 +112,10 @@ class EventControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see EventController::changeEventInfo()
+     */
     public function it_validates_event_info_before_update(): void
     {
         $this
@@ -113,7 +129,10 @@ class EventControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see EventController::disable()
+     */
     public function it_deletes_event(): void
     {
         $this
@@ -129,7 +148,10 @@ class EventControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see EventController::list()
+     */
     public function it_gets_list_of_events_with_filtering(): void
     {
         $this

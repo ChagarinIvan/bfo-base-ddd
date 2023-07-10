@@ -13,6 +13,7 @@ final class ClubSearchDto extends AbstractDto
 {
     public Pagination $pagination;
 
+    // like match
     public ?string $name;
 
     public static function validationRules(): array
@@ -27,7 +28,7 @@ final class ClubSearchDto extends AbstractDto
     {
         $this->pagination = new Pagination();
         $this->pagination = $this->pagination->fromArray($data);
-        $this->setParam('name', $data);
+        $this->setStringParam('name', $data);
 
         return $this;
     }

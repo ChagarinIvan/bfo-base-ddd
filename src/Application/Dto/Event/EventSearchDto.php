@@ -13,12 +13,16 @@ final class EventSearchDto extends AbstractDto
 {
     public Pagination $pagination;
 
+    // exact match
     public ?string $competitionId;
 
+    // like match
     public ?string $name;
 
+    // like match
     public ?string $description;
 
+    // exact match
     public ?string $date;
 
     public static function validationRules(): array
@@ -36,10 +40,10 @@ final class EventSearchDto extends AbstractDto
     {
         $this->pagination = new Pagination();
         $this->pagination = $this->pagination->fromArray($data);
-        $this->setParam('competitionId', $data);
-        $this->setParam('name', $data);
-        $this->setParam('description', $data);
-        $this->setParam('date', $data);
+        $this->setStringParam('competitionId', $data);
+        $this->setStringParam('name', $data);
+        $this->setStringParam('description', $data);
+        $this->setStringParam('date', $data);
 
         return $this;
     }

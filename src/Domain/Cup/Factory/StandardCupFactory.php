@@ -20,10 +20,7 @@ final readonly class StandardCupFactory implements CupFactory
     {
         return new Cup(
             $this->idGenerator->nextId(),
-            $input->name,
-            $input->eventsCount,
-            $input->year,
-            $input->type,
+            $input->info,
             new Impression($this->clock->now(), $input->footprint),
         );
     }

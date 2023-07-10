@@ -9,6 +9,7 @@ use App\Application\Dto\Cup\CupDto;
 use App\Application\Dto\Shared\AuthAssembler;
 use App\Application\Service\Cup\AddCup;
 use App\Application\Service\Cup\AddCupService;
+use App\Domain\Cup\CupInfo;
 use App\Domain\Cup\CupRepository;
 use App\Domain\Cup\CupType;
 use App\Domain\Cup\Factory\CupFactory;
@@ -38,7 +39,11 @@ class AddCupServiceTest extends TestCase
     /** @test */
     public function it_creates_cup(): void
     {
-        $input = new CupInput('test cup', 2, 2023, CupType::ELITE, AuthFaker::fakeFootprint());
+        $input = new CupInput(
+            new CupInfo('test cup', 2, 2023, CupType::ELITE),
+            AuthFaker::fakeFootprint(),
+        );
+
         $cup = CupFaker::fakeCup();
 
         $this->factory

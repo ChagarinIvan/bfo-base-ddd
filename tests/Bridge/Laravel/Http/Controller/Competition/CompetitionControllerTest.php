@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Bridge\Laravel\Http\Controller\Competition;
 
+use App\Bridge\Laravel\Http\Controller\Competition\CompetitionController;
 use Database\Seeders\Fakes\CompetitionFakeSeeder;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,10 @@ class CompetitionControllerTest extends TestCase
         $this->seed(CompetitionFakeSeeder::class);
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see CompetitionController::view()
+     */
     public function it_gets_competition(): void
     {
         $this
@@ -40,7 +44,10 @@ class CompetitionControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see CompetitionController::list()
+     */
     public function it_gets_list_of_competitions(): void
     {
         $this
@@ -71,7 +78,10 @@ class CompetitionControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see CompetitionController::list()
+     */
     public function it_gets_list_of_competitions_with_filtering(): void
     {
         $this
@@ -101,7 +111,10 @@ class CompetitionControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see CompetitionController::view()
+     */
     public function it_returns_not_found_when_competition_disabled(): void
     {
         $this
@@ -110,7 +123,10 @@ class CompetitionControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see CompetitionController::create()
+     */
     public function it_creates_competition(): void
     {
         $this
@@ -134,7 +150,10 @@ class CompetitionControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see CompetitionController::changeCompetitionInfo()
+     */
     public function it_changes_competition_info(): void
     {
         $this
@@ -165,7 +184,10 @@ class CompetitionControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see CompetitionController::changeCompetitionInfo()
+     */
     public function it_validates_competition_info_before_update(): void
     {
         $this
@@ -179,7 +201,10 @@ class CompetitionControllerTest extends TestCase
         ;
     }
 
-    /** @test */
+    /**
+     * @test
+     * @see CompetitionController::disable()
+     */
     public function it_deletes_competition(): void
     {
         $this

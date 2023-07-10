@@ -8,7 +8,7 @@ use function array_key_exists;
 
 abstract class AbstractDto
 {
-    /** @return array<string, string> */
+    /** @return array<string, mixed> */
     abstract public static function validationRules(): array;
 
     /** @param array<string, mixed> $data */
@@ -17,7 +17,7 @@ abstract class AbstractDto
     /**
      * @param array<string, mixed> $data
      */
-    protected function setParam(string $name, array $data): void
+    protected function setStringParam(string $name, array $data): void
     {
         if (array_key_exists($name, $data)) {
             $this->$name = $data[$name];

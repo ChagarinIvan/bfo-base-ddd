@@ -44,8 +44,12 @@ final class RestApiRoutesServiceProvider extends ServiceProvider
                 });
             });
             Route::prefix('cup')->group(static function (): void {
+                Route::get('cup/{id}', [CupController::class, 'view']);
+                Route::get('cup', [CupController::class, 'list']);
                 Route::middleware('token')->group(static function (): void {
                     Route::post('cup', [CupController::class, 'create']);
+                    Route::put('cup/{id}', [CupController::class, 'changeCupInfo']);
+                    Route::delete('cup/{id}', [CupController::class, 'disable']);
                 });
             });
         });
