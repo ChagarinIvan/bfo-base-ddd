@@ -22,7 +22,7 @@ final readonly class UpdateCupInfoService
     ) {
     }
 
-    /** @throws CupNotFound( */
+    /** @throws CupNotFound */
     public function execute(UpdateCup $command): ViewCupDto
     {
         /** @var ViewCupDto $dto */

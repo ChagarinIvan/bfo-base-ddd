@@ -22,8 +22,8 @@ final class CalculateCupEventDto extends AbstractDto
 
     public function fromArray(array $data): self
     {
-        $this->id = $data['id'];
-        $this->group = $data['group'];
+        $this->setStringParam('id', $data);
+        $this->setStringParam('group', $data);
 
         return $this;
     }

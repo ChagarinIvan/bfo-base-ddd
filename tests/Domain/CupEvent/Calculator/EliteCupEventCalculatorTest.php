@@ -11,6 +11,7 @@ use App\Domain\CupEvent\Calculator\EliteCupEventCalculator;
 use App\Domain\CupEvent\Calculator\Exception\HasNoDistances;
 use App\Domain\CupEvent\Calculator\Exception\IncompleteProtocolLine;
 use App\Domain\CupEvent\CupEventPoints;
+use App\Domain\Distance\DistanceId;
 use App\Domain\ProtocolLine\ProtocolLineRepository;
 use App\Domain\Shared\Criteria;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -51,7 +52,10 @@ class EliteCupEventCalculatorTest extends TestCase
             ->expects($this->once())
             ->method('byCriteria')
             ->with($this->equalTo(new Criteria([
-                'distanceIdIn' => ['b5f58bfd-1335-4e0c-8233-7dc2ab82181f', 'bb3bf8fc-929b-4769-9dad-9fc147a5b87f'],
+                'distanceIdIn' => [
+                    DistanceId::fromString('b5f58bfd-1335-4e0c-8233-7dc2ab82181f'),
+                    DistanceId::fromString('bb3bf8fc-929b-4769-9dad-9fc147a5b87f'),
+                ],
                 'payed' => true,
                 'outOfCompetition' => false,
             ])))
@@ -72,7 +76,10 @@ class EliteCupEventCalculatorTest extends TestCase
             ->expects($this->once())
             ->method('byCriteria')
             ->with($this->equalTo(new Criteria([
-                'distanceIdIn' => ['b5f58bfd-1335-4e0c-8233-7dc2ab82181f', 'bb3bf8fc-929b-4769-9dad-9fc147a5b87f'],
+                'distanceIdIn' => [
+                    DistanceId::fromString('b5f58bfd-1335-4e0c-8233-7dc2ab82181f'),
+                    DistanceId::fromString('bb3bf8fc-929b-4769-9dad-9fc147a5b87f'),
+                ],
                 'payed' => true,
                 'outOfCompetition' => false,
             ])))

@@ -10,6 +10,7 @@ use App\Domain\CupEvent\Calculator\Exception\IncompleteProtocolLine;
 use App\Domain\CupEvent\CupEvent;
 use App\Domain\CupEvent\CupEventId;
 use App\Domain\CupEvent\CupEventPoints;
+use App\Domain\CupEvent\GroupDistances;
 use App\Domain\ProtocolLine\ProtocolLine;
 use App\Domain\ProtocolLine\ProtocolLineId;
 use App\Domain\ProtocolLine\ProtocolLineRepository;
@@ -28,10 +29,10 @@ final readonly class EliteCupEventCalculator implements CupEventCalculator
 
     public function calculate(CupEvent $cupEvent, CupGroup $group): array
     {
-        /** @var string[] $listDistanceIds */
-        $listDistanceIds = $cupEvent->groupsMap()->get($group->id()) ?? throw HasNoDistances::byGroup($group);
+        /** @var GroupDistances $groupDistances */
+        $groupDistances = $cupEvent->groupsDistances()->get($group->id()) ?? throw HasNoDistances::byGroup($group);
         $lines = $this->lines->byCriteria(new Criteria([
-            'distanceIdIn' => $listDistanceIds,
+            'distanceIdIn' => $groupDistances->distances,
             'payed' => true,
             'outOfCompetition' => false,
         ]));

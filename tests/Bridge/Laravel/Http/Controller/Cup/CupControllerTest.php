@@ -223,7 +223,7 @@ class CupControllerTest extends TestCase
      * @test
      * @see CupController::disable()
      */
-    public function it_deletes_event(): void
+    public function it_deletes_cup(): void
     {
         $this
             ->withToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4ZWE1MDAwOC05MDQxLTQwYTktODM1MS0yYzdlY2JlMzIyYTkifQ.xW2Ln43xqo8fU1GPCBq7ZXIxbZ3UhtphUFG_wRF9Nok')

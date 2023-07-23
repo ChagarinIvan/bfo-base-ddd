@@ -42,7 +42,7 @@ class EloquentCupRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function it_adds_competition_in_db(): void
+    public function it_adds_cup_in_db(): void
     {
         $cup = CupFaker::fakeCup();
         $this->assertDatabaseEmpty('ddd_cup');

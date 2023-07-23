@@ -7,6 +7,7 @@ namespace App\Bridge\Laravel\Http\Provider;
 use App\Bridge\Laravel\Http\Controller\Club\ClubController;
 use App\Bridge\Laravel\Http\Controller\Competition\CompetitionController;
 use App\Bridge\Laravel\Http\Controller\Cup\CupController;
+use App\Bridge\Laravel\Http\Controller\CupEvent\CupEventController;
 use App\Bridge\Laravel\Http\Controller\Event\EventController;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,16 @@ final class RestApiRoutesServiceProvider extends ServiceProvider
                     Route::post('cup', [CupController::class, 'create']);
                     Route::put('cup/{id}', [CupController::class, 'changeCupInfo']);
                     Route::delete('cup/{id}', [CupController::class, 'disable']);
+                });
+            });
+            Route::prefix('cup-event')->group(static function (): void {
+                Route::get('cup-event/{id}', [CupEventController::class, 'view']);
+                Route::get('cup-event', [CupEventController::class, 'list']);
+                Route::get('cup-event/{id}/calculate', [CupEventController::class, 'calculate']);
+                Route::middleware('token')->group(static function (): void {
+                    Route::post('cup-event', [CupEventController::class, 'create']);
+                    Route::put('cup-event/{id}', [CupEventController::class, 'changeAttributes']);
+                    Route::delete('cup-event/{id}', [CupEventController::class, 'disable']);
                 });
             });
         });

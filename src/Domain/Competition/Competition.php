@@ -10,8 +10,6 @@ use DateTimeImmutable;
 
 final class Competition extends AggregatedRoot
 {
-    private bool $disabled = false;
-
     public function __construct(
         CompetitionId $id,
         private CompetitionInfo $info,
@@ -20,21 +18,10 @@ final class Competition extends AggregatedRoot
         parent::__construct($id, $impression);
     }
 
-    public function disable(Impression $impression): void
-    {
-        $this->updated = $impression;
-        $this->disabled = true;
-    }
-
     public function updateInfo(CompetitionInfo $info, Impression $impression): void
     {
         $this->info = $info;
         $this->updated = $impression;
-    }
-
-    public function disabled(): bool
-    {
-        return $this->disabled;
     }
 
     public function name(): string

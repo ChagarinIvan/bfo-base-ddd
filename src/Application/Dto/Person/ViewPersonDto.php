@@ -20,9 +20,7 @@ final class ViewPersonDto
 
     public ?string $activeRankId;
 
-    /**
-     * @var array<string, mixed>
-     */
+    /** @var array<string, mixed> */
     public array $attributes;
 
     public ImpressionDto $created;

@@ -16,7 +16,7 @@ use function array_map;
 final readonly class CalculateCupEventService
 {
     public function __construct(
-        private CupEventRepository $cupEvents,
+        private CupEventRepository $cupsEvents,
         private CupEventCalculator $calculator,
         private CupEventAssembler $assembler,
     ) {
@@ -30,7 +30,7 @@ final readonly class CalculateCupEventService
      */
     public function execute(CalculateCupEvent $command): array
     {
-        $cupEvent = $this->cupEvents->byId($command->id()) ?? throw new CupEventNotFound();
+        $cupEvent = $this->cupsEvents->byId($command->id()) ?? throw new CupEventNotFound();
         try {
             $cupEventPoints = $this->calculator->calculate($cupEvent, $command->group());
         } catch (CupNotExist $e) {

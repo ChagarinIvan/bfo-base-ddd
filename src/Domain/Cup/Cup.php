@@ -9,8 +9,6 @@ use App\Domain\Shared\Impression;
 
 final class Cup extends AggregatedRoot
 {
-    private bool $disabled = false;
-
     public function __construct(
         CupId $id,
         private CupInfo $info,
@@ -23,17 +21,6 @@ final class Cup extends AggregatedRoot
     {
         $this->info = $info;
         $this->updated = $impression;
-    }
-
-    public function disable(Impression $impression): void
-    {
-        $this->updated = $impression;
-        $this->disabled = true;
-    }
-
-    public function disabled(): bool
-    {
-        return $this->disabled;
     }
 
     public function name(): string

@@ -7,6 +7,7 @@ namespace Tests\Application\Service\CupEvent;
 use App\Application\Dto\CupEvent\CalculateCupEventDto;
 use App\Application\Dto\CupEvent\CupEventAssembler;
 use App\Application\Dto\CupEvent\ViewCupEventPointsDto;
+use App\Application\Dto\Shared\AuthAssembler;
 use App\Application\Service\CupEvent\CalculateCupEvent;
 use App\Application\Service\CupEvent\CalculateCupEventService;
 use App\Application\Service\CupEvent\Exception\CupEventNotFound;
@@ -35,7 +36,7 @@ class CalculateCupEventServiceTest extends TestCase
         $this->service = new CalculateCupEventService(
             $this->cupEvents = $this->createMock(CupEventRepository::class),
             $this->calculator = $this->createMock(CupEventCalculator::class),
-            new CupEventAssembler(),
+            new CupEventAssembler(new AuthAssembler()),
         );
     }
 

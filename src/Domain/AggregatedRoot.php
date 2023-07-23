@@ -12,12 +12,20 @@ abstract class AggregatedRoot
 
     protected Impression $created;
 
+    protected bool $disabled = false;
+
     public function __construct(
         protected AggregatedRootId $id,
         Impression $impression,
     ) {
         $this->updated = $impression;
         $this->created = $impression;
+    }
+
+    public function disable(Impression $impression): void
+    {
+        $this->updated = $impression;
+        $this->disabled = true;
     }
 
     public function id(): AggregatedRootId
@@ -33,5 +41,10 @@ abstract class AggregatedRoot
     public function created(): Impression
     {
         return $this->created;
+    }
+
+    public function disabled(): bool
+    {
+        return $this->disabled;
     }
 }

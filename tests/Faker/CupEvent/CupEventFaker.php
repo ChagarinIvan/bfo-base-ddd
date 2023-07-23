@@ -6,9 +6,12 @@ namespace Tests\Faker\CupEvent;
 
 use App\Domain\Cup\CupId;
 use App\Domain\CupEvent\CupEvent;
+use App\Domain\CupEvent\CupEventAttributes;
 use App\Domain\CupEvent\CupEventId;
+use App\Domain\CupEvent\GroupDistances;
+use App\Domain\CupEvent\GroupsDistances;
+use App\Domain\Distance\DistanceId;
 use App\Domain\Event\EventId;
-use App\Domain\Shared\Metadata;
 use Tests\Faker\Shared\AuthFaker;
 
 class CupEventFaker
@@ -22,11 +25,16 @@ class CupEventFaker
             id: CupEventId::fromString($id),
             cupId: CupId::fromString($cupId),
             eventId: EventId::fromString($eventId),
-            groupsMap: Metadata::fromArray([
-                'M_21' => ['b5f58bfd-1335-4e0c-8233-7dc2ab82181f', 'bb3bf8fc-929b-4769-9dad-9fc147a5b87f'],
-            ]),
-            points: 1100,
-            impression: AuthFaker::fakeImpression()
+            attributes: new CupEventAttributes(
+                new GroupsDistances([
+                    new GroupDistances('M_21', [
+                        DistanceId::fromString('b5f58bfd-1335-4e0c-8233-7dc2ab82181f'),
+                        DistanceId::fromString('bb3bf8fc-929b-4769-9dad-9fc147a5b87f'),
+                    ]),
+                ]),
+                points: 1100,
+            ),
+            impression: AuthFaker::fakeImpression(),
         );
     }
 }

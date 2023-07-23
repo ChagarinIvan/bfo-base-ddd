@@ -64,13 +64,13 @@ class UpdateCupInfoServiceTest extends TestCase
     public function it_updates_cup_info(): void
     {
         $cupId = CupId::fromString('6deb7e98-b55d-4214-98ac-fc3a16e3ec6b');
-        $event = CupFaker::fakeCup(id: '6deb7e98-b55d-4214-98ac-fc3a16e3ec6b');
+        $cup = CupFaker::fakeCup(id: '6deb7e98-b55d-4214-98ac-fc3a16e3ec6b');
 
         $this->cups
             ->expects($this->once())
             ->method('lockById')
             ->with($this->equalTo($cupId))
-            ->willReturn($event)
+            ->willReturn($cup)
         ;
 
         $this->cups->expects($this->once())->method('update');

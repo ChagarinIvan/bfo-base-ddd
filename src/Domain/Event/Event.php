@@ -11,8 +11,6 @@ use DateTimeImmutable;
 
 final class Event extends AggregatedRoot
 {
-    private bool $disabled = false;
-
     public function __construct(
         EventId $id,
         private readonly CompetitionId $competitionId,
@@ -40,17 +38,6 @@ final class Event extends AggregatedRoot
     public function competitionId(): CompetitionId
     {
         return $this->competitionId;
-    }
-
-    public function disabled(): bool
-    {
-        return $this->disabled;
-    }
-
-    public function disable(Impression $impression): void
-    {
-        $this->updated = $impression;
-        $this->disabled = true;
     }
 
     public function updateInfo(EventInfo $info, Impression $impression): void

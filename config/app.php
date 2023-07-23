@@ -7,6 +7,8 @@ use App\Bridge\Laravel\Provider\AppServiceProvider;
 use App\Bridge\Laravel\Provider\Club\ClubServiceProvider;
 use App\Bridge\Laravel\Provider\Competition\CompetitionServiceProvider;
 use App\Bridge\Laravel\Provider\Cup\CupServiceProvider;
+use App\Bridge\Laravel\Provider\Cup\Group\GroupIdValidationServiceProvider;
+use App\Bridge\Laravel\Provider\CupEvent\CupEventServiceProvider;
 use App\Bridge\Laravel\Provider\Event\EventServiceProvider;
 use App\Bridge\Laravel\Provider\TestAppServiceProvider;
 use Illuminate\Database\DatabaseServiceProvider;
@@ -178,6 +180,10 @@ return [
             CompetitionServiceProvider::class,
             EventServiceProvider::class,
             CupServiceProvider::class,
+            CupEventServiceProvider::class,
+
+            // Validators
+            GroupIdValidationServiceProvider::class,
 
             // Test
             TestAppServiceProvider::class,

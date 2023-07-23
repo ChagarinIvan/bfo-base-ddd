@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Domain\Shared;
 
 use OutOfRangeException;
+use function array_diff_key;
+use function array_flip;
 
 readonly class Criteria
 {
@@ -31,15 +33,12 @@ readonly class Criteria
         return $this->params[$key] ?? new OutOfRangeException('Has no param.');
     }
 
-    /** @param string[] $params */
-    public function hasParams(array $params): bool
+    /**
+     * @param string[] $params
+     * @return array<string, mixed>
+     */
+    public function withoutParams(array $params): array
     {
-        foreach ($params as $name) {
-            if (!$this->hasParam($name)) {
-                return false;
-            }
-        }
-
-        return true;
+        return array_diff_key($this->params, array_flip($params));
     }
 }

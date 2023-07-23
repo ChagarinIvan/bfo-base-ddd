@@ -50,7 +50,7 @@ class DisableCupServiceTest extends TestCase
     }
 
     /** @test */
-    public function it_disables_competition(): void
+    public function it_disables_cup(): void
     {
         $cupId = CupId::fromString('6deb7e98-b55d-4214-98ac-fc3a16e3ec6b');
         $cup = CupFaker::fakeCup();

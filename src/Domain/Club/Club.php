@@ -10,8 +10,6 @@ use App\Domain\Shared\Impression;
 
 final class Club extends AggregatedRoot
 {
-    private bool $disabled = false;
-
     public function __construct(
         ClubId $id,
         private string $name,
@@ -24,17 +22,6 @@ final class Club extends AggregatedRoot
     {
         $this->name = $input->name;
         $this->updated = $impression;
-    }
-
-    public function disable(Impression $impression): void
-    {
-        $this->updated = $impression;
-        $this->disabled = true;
-    }
-
-    public function disabled(): bool
-    {
-        return $this->disabled;
     }
 
     public function name(): string

@@ -66,8 +66,8 @@ class AddCupServiceTest extends TestCase
         $dto->type = 'elite';
 
         $command = new AddCup($dto, AuthFaker::fakeFootprintDto());
-        $clubDto = $this->service->execute($command);
+        $cupDto = $this->service->execute($command);
 
-        $this->assertEquals($cup->id()->toString(), $clubDto->id);
+        $this->assertEquals($cup->id()->toString(), $cupDto->id);
     }
 }
